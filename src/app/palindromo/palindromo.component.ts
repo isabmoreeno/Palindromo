@@ -4,14 +4,18 @@ import { Component } from '@angular/core';
   selector: 'app-palindromo',
   standalone: false,
   templateUrl: './palindromo.component.html',
-  styleUrl: './palindromo.component.css'
+  styleUrls: ['./palindromo.component.css']
 })
 export class PalindromoComponent {
   text: string = '';
   palindromo: boolean | null = null;
 
   checkPalindromo() {
-    const sanitizedText = this.text.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
-    this.palindromo = sanitizedText === sanitizedText.split('').reverse().join('');
+    if (!this.text) {
+      this.palindromo = null;
+      return;
+    }
+    const cleanedText = this.text.toLowerCase().replace(/[^a-z0-9]/g, '');
+    this.palindromo = cleanedText === cleanedText.split('').reverse().join('');
   }
 }
